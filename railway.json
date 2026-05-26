@@ -1,6 +1,5 @@
 {
   "build": {
-    "builder": "NIXPACKS",
-    "watchPatterns": ["backend/**", "frontend/**"]
+    "builder": "DOCKERFILE"
   }
 }
