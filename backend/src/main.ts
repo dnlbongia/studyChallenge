@@ -4,6 +4,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
 import { join } from 'path';
 import { existsSync } from 'fs';
+import type { Request, Response, NextFunction } from 'express';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -16,7 +17,7 @@ async function bootstrap() {
     const distPath = join(__dirname, '..', '..', 'frontend', 'dist');
     if (existsSync(distPath)) {
       app.useStaticAssets(distPath);
-      app.use((req, res, next) => {
+      app.use((req: Request, res: Response, next: NextFunction) => {
         if (!req.path.startsWith('/api') && !req.path.startsWith('/content')) {
           res.sendFile(join(distPath, 'index.html'));
         } else {
